@@ -2,6 +2,7 @@ import './App.css';
 import { MouseEvent, FormEvent, useState } from 'react';
 import { onlySpaces } from './utils';
 import sprite from './svg/sprite.svg';
+import Icon from './components/Icon/Icon';
 
 function App() {
 	const [searchAdresses, setSearchAdresses] = useState<
@@ -151,9 +152,6 @@ function App() {
 				)}
 			</div>
 			<main>
-				<svg>
-					<use href={`${sprite}#cloud-solid`}></use>
-				</svg>
 				{searchPlace && (
 					<div className="container mt-5 text-2xl">
 						<h2>{searchPlace.formattedName}</h2>
@@ -161,6 +159,7 @@ function App() {
 							<h3>
 								Teplota: <span>{Math.round(searchPlace.main.temp)}°C</span>
 							</h3>
+							<Icon icon={searchPlace.weather[0].icon.slice(0, 2)} />
 						</div>
 					</div>
 				)}
