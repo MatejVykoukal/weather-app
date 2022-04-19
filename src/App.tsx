@@ -1,8 +1,8 @@
 import './App.css';
 import { MouseEvent, FormEvent, useState } from 'react';
-import { onlySpaces } from './utils';
-import sprite from './svg/sprite.svg';
+import { getData, onlySpaces } from './utils';
 import Icon from './components/Icon/Icon';
+import { AdressRequestConfig, CurrentWeatherRequestConfig } from './constants';
 
 function App() {
 	const [searchAdresses, setSearchAdresses] = useState<
@@ -22,90 +22,67 @@ function App() {
 		lon: number;
 	}>();
 
-	const fetchWeatherData = async (lat: number, lon: number) => {
-		const BASE_URL = `https://community-open-weather-map.p.rapidapi.com/weather?lat=${lat}&lon=${lon}&lang=en&units=metric`;
-
-		const REQUEST_OPTIONS = {
-			method: 'GET',
-			headers: {
-				'X-RapidAPI-Host': String(process.env.REACT_APP_WEATHER_API_HOST),
-				'X-RapidAPI-Key': String(process.env.REACT_APP_WEATHER_API_KEY),
-			},
-		};
-
-		try {
-			const data = await fetch(BASE_URL, REQUEST_OPTIONS).then((response) =>
-				response.json()
-			);
-			return data;
-		} catch (err) {
-			console.error(err);
-		}
-	};
-
-	const fetchAdressData = async (searchQuery: string) => {
-		const BASE_URL = `https://address-completion.p.rapidapi.com/v1/geocode/autocomplete?text=${searchQuery}&limit=5&lang=en`;
-
-		const REQUEST_OPTIONS = {
-			method: 'GET',
-			headers: {
-				'X-RapidAPI-Host': String(process.env.REACT_APP_ADRESS_API_HOST),
-				'X-RapidAPI-Key': String(process.env.REACT_APP_ADRESS_API_KEY),
-			},
-		};
-
-		try {
-			const data = await fetch(BASE_URL, REQUEST_OPTIONS).then((response) =>
-				response.json()
-			);
-			console.log(data.features);
-
-			setSearchAdresses(data.features);
-		} catch (err) {
-			console.error(err);
-		}
-	};
-
 	const handleAdressClick = async (e: MouseEvent<HTMLButtonElement>) => {
 		const placeId = e.currentTarget.id;
-
 		const placeAdress = searchAdresses.filter(
 			({ properties }) => properties.place_id === placeId
 		)[0];
 
-		if (placeAdress) {
-			const placeWeather = await fetchWeatherData(
-				placeAdress.properties.lat,
-				placeAdress.properties.lon
-			);
+		if (!placeAdress) return;
 
-			setSearchPlace({
-				formattedName: placeAdress.properties.formatted,
-				lat: placeAdress.properties.lat,
-				lon: placeAdress.properties.lon,
-				...placeWeather,
-			});
-		}
+		const { data: currentWeather, error } = await getData(
+			CurrentWeatherRequestConfig,
+			{
+				lat: placeAdress.properties.lat.toString(),
+				lon: placeAdress.properties.lon.toString(),
+			}
+		);
+
+		if (error) return;
+
+		setSearchPlace({
+			formattedName: placeAdress.properties.formatted,
+			lat: placeAdress.properties.lat,
+			lon: placeAdress.properties.lon,
+			...currentWeather,
+		});
 
 		setSearchAdresses([]);
+	};
+
+	const handleSearchSubmit = async (e: FormEvent<HTMLFormElement>) => {
+		e.preventDefault();
+
+		const searchInputElement: HTMLInputElement =
+			e.currentTarget.querySelector('[name="search"]')!;
+
+		const { value: searchQuery } = searchInputElement;
+
+		if (onlySpaces(searchQuery)) {
+			searchInputElement.value = '';
+			return;
+		}
+
+		const { data: adresses, error } = await getData(AdressRequestConfig, {
+			text: searchQuery,
+		});
+
+		if (error) {
+			//TODO: Create error state & error component
+			searchInputElement.value = '';
+			return;
+		}
+
+		setSearchAdresses(adresses.features);
+
+		searchInputElement.value = '';
 	};
 
 	return (
 		<div className="App">
 			<div className="container relative">
 				<form
-					onSubmit={(e: FormEvent<HTMLFormElement>) => {
-						e.preventDefault();
-						const searchInputElement: HTMLInputElement =
-							e.currentTarget.querySelector('[name="search"]')!;
-						const searchQuery = searchInputElement.value.trim();
-						if (onlySpaces(searchQuery)) {
-							searchInputElement.value = '';
-							return;
-						}
-						fetchAdressData(searchQuery);
-						searchInputElement.value = '';
-					}}
+					onSubmit={handleSearchSubmit}
 					className="relative form-control items-center pt-10 pb-5"
 				>
 					<label htmlFor="search" className="w-0 h-0 absolute invisible">
@@ -114,9 +91,8 @@ function App() {
 					<div className="input-group rounded-full w-full">
 						<input
 							type="text"
-							placeholder="Search for city, country, postcode, etc."
 							name="search"
-							id="search"
+							placeholder="Search for city, country, postcode, etc."
 							className="input input-bordered flex-grow"
 						/>
 						<button type="submit" className="btn btn-square">
