@@ -1,4 +1,4 @@
-import { FetchResult, QueryParams } from './types';
+import { FetchResult, IJson, QueryParams } from '../types/utils';
 
 /**
  *
@@ -63,8 +63,16 @@ export const parseUrl = (url: string, params: QueryParams): string => {
 	}${queryString}`;
 };
 
-export const getData = async (config: RequestConfig, params?: QueryParams) => {
-	let result: FetchResult<any> = { data: undefined, error: undefined };
+/**
+ * @param config Config with request options, url, ...
+ * @param params Object with key:value pairs of query parameters
+ * @returns Object with data in shape of JSON and possible error
+ */
+export const getData = async (
+	config: RequestConfig,
+	params?: QueryParams
+): Promise<FetchResult<any>> => {
+	let result: FetchResult<IJson> = { data: undefined, error: undefined };
 	try {
 		const res = await fetch(
 			parseUrl(config.url, {

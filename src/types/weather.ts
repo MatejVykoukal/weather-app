@@ -55,3 +55,9 @@ declare module CurrentWeatherApi {
 }
 
 export default CurrentWeatherApi;
+
+export interface ICurrentWeather extends CurrentWeatherApi.RootObject {
+	formattedName: string;
+	lat: number;
+	lon: number;
+}

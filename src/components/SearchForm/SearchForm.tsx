@@ -1,22 +1,16 @@
-import React, { Dispatch, FormEvent, SetStateAction } from 'react';
-import { ICurrentWeather } from '../../App';
+import React, { FormEvent, useContext } from 'react';
 import { AdressRequestConfig } from '../../constants';
-import AdressApi from '../../types/adressApi';
+import { adressContext } from '../../contexts/adressContext';
+import AdressApi from '../../types/adress';
 import { getData, onlySpaces } from '../../utils';
-import { FetchResult } from '../../utils/types';
+import { FetchResult } from '../../types/utils';
 import FormAutocomplete from '../FormAutocomplete';
 
-interface Props {
-	setSearchAdresses: Dispatch<SetStateAction<AdressApi.Feature[]>>;
-	searchAdresses: AdressApi.Feature[];
-	setSearchPlace: Dispatch<SetStateAction<ICurrentWeather | undefined>>;
-}
+interface Props {}
 
-const SearchForm: React.FC<Props> = ({
-	setSearchAdresses,
-	searchAdresses,
-	setSearchPlace,
-}) => {
+const SearchForm: React.FC<Props> = () => {
+	const { setSearchAdresses } = useContext(adressContext);
+
 	const handleSearchSubmit = async (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 
@@ -31,7 +25,7 @@ const SearchForm: React.FC<Props> = ({
 			await getData(AdressRequestConfig, {
 				text: searchQuery,
 			});
-		if (error) {
+		if (error || !setSearchAdresses) {
 			//TODO: Create error state & error component
 			searchInputElement.value = '';
 			return;
@@ -74,11 +68,7 @@ const SearchForm: React.FC<Props> = ({
 					</button>
 				</div>
 			</form>
-			<FormAutocomplete
-				searchAdresses={searchAdresses}
-				setSearchPlace={setSearchPlace}
-				setSearchAdresses={setSearchAdresses}
-			/>
+			<FormAutocomplete />
 		</div>
 	);
 };
