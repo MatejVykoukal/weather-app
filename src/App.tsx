@@ -3,6 +3,9 @@ import { MouseEvent, FormEvent, useState } from 'react';
 import { getData, onlySpaces } from './utils';
 import Icon from './components/Icon/Icon';
 import { AdressRequestConfig, CurrentWeatherRequestConfig } from './constants';
+import AdressApi from './types/adressApi';
+import { FetchResult } from './utils/types';
+import CurrentWeatherApi from './types/currentWeatherApi';
 
 function App() {
 	const [searchAdresses, setSearchAdresses] = useState<
@@ -30,7 +33,10 @@ function App() {
 
 		if (!placeAdress) return;
 
-		const { data: currentWeather, error } = await getData(
+		const {
+			data: currentWeather,
+			error,
+		}: FetchResult<CurrentWeatherApi.RootObject> = await getData(
 			CurrentWeatherRequestConfig,
 			{
 				lat: placeAdress.properties.lat.toString(),
@@ -63,9 +69,10 @@ function App() {
 			return;
 		}
 
-		const { data: adresses, error } = await getData(AdressRequestConfig, {
-			text: searchQuery,
-		});
+		const { data: adresses, error }: FetchResult<AdressApi.RootObject> =
+			await getData(AdressRequestConfig, {
+				text: searchQuery,
+			});
 
 		if (error) {
 			//TODO: Create error state & error component
@@ -73,7 +80,7 @@ function App() {
 			return;
 		}
 
-		setSearchAdresses(adresses.features);
+		setSearchAdresses(adresses!.features);
 
 		searchInputElement.value = '';
 	};
@@ -133,7 +140,7 @@ function App() {
 						<h2>{searchPlace.formattedName}</h2>
 						<div>
 							<h3>
-								Teplota: <span>{Math.round(searchPlace.main.temp)}°C</span>
+								Temperature: <span>{Math.round(searchPlace.main.temp)}°C</span>
 							</h3>
 							<Icon icon={searchPlace.weather[0].icon.slice(0, 2)} />
 						</div>
