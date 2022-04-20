@@ -1,7 +1,16 @@
 import { FC } from 'react';
 import sprite from '../../svg/sprite.svg';
 
-type IconType = '01' | '02' | '03' | '04' | '09' | '10' | '11' | '13' | '50';
+export type IconType =
+	| '01'
+	| '02'
+	| '03'
+	| '04'
+	| '09'
+	| '10'
+	| '11'
+	| '13'
+	| '50';
 
 interface IconProps {
 	icon: IconType;
