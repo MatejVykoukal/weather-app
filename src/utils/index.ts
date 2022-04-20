@@ -90,6 +90,9 @@ export const getData = async (
 	return result;
 };
 
+/**
+ * Creates RequestConfig object, that is mandatory parameter in `getData()` func.
+ */
 export class RequestConfig {
 	constructor(
 		public url: string,
