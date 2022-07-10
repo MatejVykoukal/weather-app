@@ -10,7 +10,8 @@ export type IconType =
 	| '10'
 	| '11'
 	| '13'
-	| '50';
+	| '50'
+	| 'humidity';
 
 interface IconProps {
 	icon: IconType;
