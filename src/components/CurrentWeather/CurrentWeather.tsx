@@ -4,41 +4,56 @@ import { IconType } from '../Icon/Icon';
 import { weatherContext } from '../../contexts/weatherContext';
 import WeatherDetails from '../WeatherDetail';
 import classnames from 'classnames';
-import { getFormatedDate } from '../../utils';
+import { capitalize, getFormatedDate } from '../../utils';
 
 interface Props {}
 
 const CurrentWeather: React.FC<Props> = () => {
 	const { currentWeather } = useContext(weatherContext);
 
+	const getBackgroundImageClass = (icon: string) => {
+		switch (icon) {
+			case '01d':
+				return 'bg-sun-overlay';
+			case '01n':
+				return 'bg-moon-overlay';
+			case '02d':
+			case '03d':
+			case '04d':
+				return 'bg-clouds-day-overlay';
+			case '02n':
+			case '03n':
+			case '04n':
+				return 'bg-clouds-night-overlay';
+			case '50d':
+				return 'bg-mist-overlay';
+			case '13d':
+				return 'bg-snow-overlay';
+			case '10d':
+				return 'bg-rain-overlay';
+			case '09d':
+				return 'bg-drizzle-overlay';
+			case '11d':
+				return 'bg-thunderstorm-overlay';
+			default:
+				return '';
+		}
+	};
+
 	return (
 		<>
 			{currentWeather && (
-				<section className="container flex gap-10 flex-wrap justify-center">
+				<section
+					aria-label="Current weather"
+					className="container flex gap-10 flex-wrap justify-center"
+				>
 					<h2 className="invisible absolute h-0 w-0">
 						Current weather at ${currentWeather.formattedName}
 					</h2>
 					<div
 						className={classnames(
 							'flex flex-col relative gap-8 flex-grow text-white p-5 md:p-10 bg-cover',
-							{
-								'bg-sun-overlay': currentWeather.weather[0].icon === '01d',
-								'bg-moon-overlay': currentWeather.weather[0].icon === '01n',
-								'bg-clouds-day-overlay':
-									currentWeather.weather[0].icon === '02d' ||
-									currentWeather.weather[0].icon === '03d' ||
-									currentWeather.weather[0].icon === '04d',
-								'bg-clouds-night-overlay':
-									currentWeather.weather[0].icon === '02n' ||
-									currentWeather.weather[0].icon === '03n' ||
-									currentWeather.weather[0].icon === '04n',
-								'bg-mist-overlay': currentWeather.weather[0].icon === '50d',
-								'bg-snow-overlay': currentWeather.weather[0].icon === '13d',
-								'bg-rain-overlay': currentWeather.weather[0].icon === '10d',
-								'bg-drizzle-overlay': currentWeather.weather[0].icon === '09d',
-								'bg-thunderstorm-overlay':
-									currentWeather.weather[0].icon === '11d',
-							}
+							getBackgroundImageClass(currentWeather.weather[0].icon)
 						)}
 					>
 						<div className="flex flex-wrap items-center justify-between gap-4">
@@ -71,10 +86,16 @@ const CurrentWeather: React.FC<Props> = () => {
 								/>
 							</div>
 						</div>
-						<WeatherDetails
-							icon="location"
-							detail={currentWeather.formattedName}
-						/>
+						<div className="flex justify-between">
+							<WeatherDetails
+								icon="location"
+								detail={currentWeather.formattedName}
+							/>
+							<WeatherDetails
+								icon={currentWeather.weather[0].icon.slice(0, 2) as IconType}
+								detail={capitalize(currentWeather.weather[0].description)}
+							/>
+						</div>
 					</div>
 				</section>
 			)}

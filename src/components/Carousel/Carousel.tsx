@@ -19,9 +19,9 @@ const Carousel: React.FC<Props> = ({ children, id }) => {
 	}, [id]);
 
 	return (
-		<div className="py-8 glide cursor-grab" id={id}>
+		<div className="py-8 glide" id={id}>
 			<div className="glide__track" data-glide-el="track">
-				<ul className="glide__slides ">{children}</ul>
+				<ul className="glide__slides cursor-grab">{children}</ul>
 			</div>
 		</div>
 	);

@@ -26,13 +26,21 @@ const WeatherForecast: React.FC<Props> = () => {
 	return (
 		<>
 			{dailyWeatherForecast && uniqueDates && (
-				<section className="container mt-16">
-					<h2 className="text-xl">Detailed forecast for next 5 days</h2>
+				<section
+					aria-labelledby="weather-forecast__heading"
+					className="container mt-16"
+				>
+					<h2 id="weather-forecast__heading" className="text-xl">
+						Forecast for next 5 days
+					</h2>
 					<Tabs disableUpDownKeys>
 						<TabList className=" mt-8 p-1 flex gap-4 justify-start overflow-auto ">
 							{uniqueDates.map((uniqueDate, i) => {
 								return (
-									<Tab className="whitespace-nowrap btn rounded-none btn-primary [&[aria-selected='true']]:bg-transparent">
+									<Tab
+										key={uniqueDate}
+										className="whitespace-nowrap btn rounded-none btn-primary [&[aria-selected='true']]:bg-transparent"
+									>
 										{i === 0 ? 'Today' : i === 1 ? 'Tommorow' : uniqueDate}
 									</Tab>
 								);
@@ -40,8 +48,8 @@ const WeatherForecast: React.FC<Props> = () => {
 						</TabList>
 						{uniqueDates.map((uniqueDate, i) => {
 							return (
-								<TabPanel>
-									<Carousel key={uniqueDate} id={`weather__carousel--${i}`}>
+								<TabPanel key={uniqueDate}>
+									<Carousel id={`weather__carousel--${i}`}>
 										{dailyWeatherForecast
 											.filter(
 												(forecast) =>
