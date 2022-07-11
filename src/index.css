@@ -6,4 +6,33 @@
 	.container {
 		@apply max-w-4xl mx-auto px-2 md:px-5;
 	}
+	.bg-glass {
+		background: rgba(255, 255, 255, 0.1);
+		box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+		backdrop-filter: blur(5px);
+		-webkit-backdrop-filter: blur(5px);
+	}
+}
+
+/* ===== Scrollbar CSS ===== */
+/* Firefox */
+* {
+	scrollbar-width: thin;
+	scrollbar-color: #808080 #ffffff;
+}
+
+/* Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+	width: 8px;
+	height: 8px;
+}
+
+*::-webkit-scrollbar-track {
+	background: #1e293b;
+}
+
+*::-webkit-scrollbar-thumb {
+	background-color: #a6adba;
+	border-radius: 10px;
+	border: 2px solid transparent;
 }

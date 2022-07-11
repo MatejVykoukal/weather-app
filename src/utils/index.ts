@@ -66,7 +66,7 @@ export const parseUrl = (url: string, params: QueryParams): string => {
 /**
  * @param config Config with request options, url, ...
  * @param params Object with key:value pairs of query parameters
- * @returns Object with data in shape of JSON and possible error
+ * @returns Object with data in shape of JSON or possible error
  */
 export const getData = async (
 	config: RequestConfig,
@@ -107,3 +107,25 @@ export class RequestConfig {
 
 export const capitalize = (str: string) =>
 	str.charAt(0).toUpperCase() + str.slice(1);
+
+export const getFormatedDate = (timestamp: number) => {
+	const date = new Date(timestamp * 1000);
+
+	const month = capitalize(date.toLocaleDateString('en', { month: 'short' }));
+	const weekDay = capitalize(
+		date.toLocaleDateString('en', { weekday: 'short' })
+	);
+	const day = date.getDate().toString();
+
+	return `${weekDay}, ${day} ${month}`;
+};
+
+export const getFormatedTime = (timestamp: number) => {
+	const date = new Date(timestamp * 1000);
+
+	const hours = date.getHours() < 10 ? '0' + date.getHours() : date.getHours();
+	const minutes =
+		date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes();
+
+	return `${hours}:${minutes}`;
+};

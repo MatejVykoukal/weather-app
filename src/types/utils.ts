@@ -7,6 +7,6 @@ export interface IJson {
 }
 
 export interface FetchResult<T> {
-	data?: T | undefined;
-	error?: string | undefined;
+	data?: T;
+	error?: Object;
 }
