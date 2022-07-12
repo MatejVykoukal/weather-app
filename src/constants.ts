@@ -62,3 +62,11 @@ export const WeatherForecastRequestConfig = new RequestConfig(
 	WEATHER_FORECAST_BASE_PARAMS,
 	WEATHER_FORECAST_REQUEST_OPTIONS
 );
+
+const NEW_YORK_LAT = 40.73061;
+const NEW_YORK_LON = -73.935242;
+
+export const COORDS_INITAL = {
+	lat: NEW_YORK_LAT,
+	lon: NEW_YORK_LON,
+};

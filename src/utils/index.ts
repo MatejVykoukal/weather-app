@@ -85,7 +85,7 @@ export const getData = async (
 		result.data = data;
 	} catch (err) {
 		console.error(err);
-		result.error = (err as Error).stack as string;
+		result.error = err as string;
 	}
 	return result;
 };
