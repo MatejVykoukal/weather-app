@@ -1,10 +1,11 @@
 import React, { useContext } from 'react';
 import Icon from '../Icon';
-import { IconType } from '../Icon/Icon';
+import { ApiWeatherIconCodes, IconType } from '../Icon/Icon';
 import { weatherContext } from '../../contexts/weatherContext';
 import WeatherDetails from '../WeatherDetail';
 import classnames from 'classnames';
 import { capitalize, getFormatedDate } from '../../utils';
+import { IApiWeatherIconCodes } from '../../types/weather';
 
 interface Props {}
 
@@ -80,19 +81,29 @@ const CurrentWeather: React.FC<Props> = () => {
 										/>
 									</div>
 								</div>
-								<Icon
-									icon={currentWeather.weather[0].icon.slice(0, 2) as IconType}
-									size={100}
-								/>
+								<div className="flex flex-col items-center gap-4">
+									<Icon
+										icon={
+											ApiWeatherIconCodes[
+												currentWeather.weather[0].icon.slice(
+													0,
+													2
+												) as IApiWeatherIconCodes
+											]
+										}
+										size={100}
+									/>
+								</div>
 							</div>
 						</div>
-						<div className="flex gap-4">
+
+						<div className="flex justify-between">
 							<WeatherDetails
 								icon="location"
 								detail={currentWeather.formattedName}
 							/>
 							<WeatherDetails
-								icon={currentWeather.weather[0].icon.slice(0, 2) as IconType}
+								icon="text"
 								detail={capitalize(currentWeather.weather[0].description)}
 							/>
 						</div>

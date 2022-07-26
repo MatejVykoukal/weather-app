@@ -6,6 +6,8 @@ import { IconType } from '../Icon';
 import Carousel from '../Carousel';
 import WeatherForecastCard from '../WeatherForecastCard';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import { IApiWeatherIconCodes } from '../../types/weather';
+import { ApiWeatherIconCodes } from '../Icon/Icon';
 
 interface Props {}
 
@@ -64,10 +66,12 @@ const WeatherForecast: React.FC<Props> = () => {
 													date={uniqueDate}
 													time={getFormatedTime(filteredForecast.dt)}
 													icon={
-														filteredForecast.weather[0].icon.slice(
-															0,
-															2
-														) as IconType
+														ApiWeatherIconCodes[
+															filteredForecast.weather[0].icon.slice(
+																0,
+																2
+															) as IApiWeatherIconCodes
+														]
 													}
 													key={filteredForecast.dt}
 												/>
