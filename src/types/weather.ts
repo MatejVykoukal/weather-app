@@ -137,3 +137,8 @@ export declare module WeatherForecastApi {
 }
 
 export type IWeatherForecast = WeatherForecastApi.Forecast[];
+
+export interface WeatherError {
+	error: boolean;
+	message: string;
+}

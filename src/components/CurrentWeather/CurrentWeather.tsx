@@ -86,7 +86,7 @@ const CurrentWeather: React.FC<Props> = () => {
 								/>
 							</div>
 						</div>
-						<div className="flex justify-between">
+						<div className="flex gap-4">
 							<WeatherDetails
 								icon="location"
 								detail={currentWeather.formattedName}

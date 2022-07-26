@@ -1,12 +1,7 @@
 import React, { useContext } from 'react';
-import {
-	AdressRequestConfig,
-	CurrentWeatherRequestConfig,
-	WeatherForecastRequestConfig,
-} from '../../constants';
+import { AdressRequestConfig } from '../../constants';
 import { adressContext } from '../../contexts/adressContext';
 import { weatherContext } from '../../contexts/weatherContext';
-import { CurrentWeatherApi, WeatherForecastApi } from '../../types/weather';
 import { getData } from '../../utils';
 import { FetchResult } from '../../types/utils';
 import AdressApi from '../../types/adress';
@@ -14,9 +9,8 @@ import Autocomplete from 'accessible-autocomplete/react';
 
 interface Props {}
 
-const SearchForm: React.FC<Props> = () => {
-	const { setCurrentWeather, setDailyWeatherForecast } =
-		useContext(weatherContext);
+const WeatherSearchForm: React.FC<Props> = () => {
+	const { setWeatherData } = useContext(weatherContext);
 	const { setSearchAdresses, searchAdresses } = useContext(adressContext);
 
 	const searchInput = document.getElementById(
@@ -30,44 +24,13 @@ const SearchForm: React.FC<Props> = () => {
 
 		if (!placeAdress) return;
 
-		const {
-			data: currentWeather,
-			error: currentWeatherError,
-		}: FetchResult<CurrentWeatherApi.RootObject> = await getData(
-			CurrentWeatherRequestConfig,
-			{
-				lat: placeAdress.properties.lat.toString(),
-				lon: placeAdress.properties.lon.toString(),
-			}
-		);
-		const {
-			data: weatherForecast,
-			error: weatherForecastError,
-		}: FetchResult<WeatherForecastApi.RootObject> = await getData(
-			WeatherForecastRequestConfig,
-			{
-				lat: placeAdress.properties.lat.toString(),
-				lon: placeAdress.properties.lon.toString(),
-			}
+		setWeatherData!(
+			placeAdress.properties.lat,
+			placeAdress.properties.lon,
+			placeAdress.properties.formatted
 		);
 
-		if (currentWeatherError || !currentWeather || !setCurrentWeather) return;
-
-		setCurrentWeather({
-			formattedName: placeAdress.properties.formatted,
-			lat: placeAdress.properties.lat,
-			lon: placeAdress.properties.lon,
-			...currentWeather,
-		});
-
-		if (!weatherForecast || weatherForecastError) return;
-
-		const dailyWeatherForecast = weatherForecast.list.map(
-			(weatherData) => weatherData
-		);
-
-		if (setDailyWeatherForecast) setDailyWeatherForecast(dailyWeatherForecast);
-		if (setSearchAdresses) setSearchAdresses([]);
+		setSearchAdresses!([]);
 
 		searchInput.value = '';
 	};
@@ -80,11 +43,11 @@ const SearchForm: React.FC<Props> = () => {
 			await getData(AdressRequestConfig, {
 				text: query,
 			});
-		if (error || !setSearchAdresses) {
+		if (error)
 			//TODO: Create error state & error component
 			return;
-		}
-		setSearchAdresses(adresses!.features);
+
+		setSearchAdresses!(adresses!.features);
 		populateResults(
 			adresses!.features.map(({ properties }) => properties.formatted)
 		);
@@ -92,7 +55,7 @@ const SearchForm: React.FC<Props> = () => {
 
 	return (
 		<form className="mt-8" onSubmit={(e) => e.preventDefault()} role="search">
-			<label htmlFor="search" className="w-0 h-0 absolute invisible">
+			<label htmlFor="weather-search" className="w-0 h-0 absolute invisible">
 				Search for weather in city, country or country code
 			</label>
 			<div className="container">
@@ -114,4 +77,4 @@ const SearchForm: React.FC<Props> = () => {
 	);
 };
 
-export default SearchForm;
+export default WeatherSearchForm;

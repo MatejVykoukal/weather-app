@@ -1,14 +1,16 @@
 import { FC } from 'react';
 
 interface IconProps {
-	extraMessage?: string;
+	message?: string;
 }
 
-const Error: FC<IconProps> = ({ extraMessage }) => {
+const Error: FC<IconProps> = ({ message }) => {
+	const defaultMessage =
+		'We are sorry! <br /> Our application is not available at the moment. Please try it again in few minutes.';
+
 	return (
 		<p className="text-2xl container text-center text-red-600">
-			We are sorry! <br /> Our application is not available at the moment.
-			Please try it again in few minutes. <br /> {extraMessage}
+			{message ? message : defaultMessage}
 		</p>
 	);
 };

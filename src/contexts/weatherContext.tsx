@@ -13,6 +13,7 @@ import {
 	CurrentWeatherApi,
 	ICurrentWeather,
 	IWeatherForecast,
+	WeatherError,
 	WeatherForecastApi,
 } from '../types/weather';
 import { getData } from '../utils';
@@ -28,9 +29,13 @@ interface WeatherContextValue {
 	setDailyWeatherForecast: Dispatch<
 		SetStateAction<IWeatherForecast | undefined>
 	>;
-	setWeatherData: (lat: number, lon: number) => Promise<true | undefined>;
-	error: boolean;
-	setError: Dispatch<SetStateAction<boolean>>;
+	setWeatherData: (
+		lat: number,
+		lon: number,
+		formattedName?: string
+	) => Promise<true | undefined>;
+	error: WeatherError;
+	setError: Dispatch<SetStateAction<WeatherError>>;
 }
 
 export const weatherContext = createContext<Partial<WeatherContextValue>>({});
@@ -40,9 +45,16 @@ export const WeatherProvider: React.FC<Props> = ({ children }) => {
 	const [dailyWeatherForecast, setDailyWeatherForecast] =
 		useState<IWeatherForecast>();
 
-	const [error, setError] = useState<boolean>(false);
+	const [error, setError] = useState<WeatherError>({
+		error: false,
+		message: '',
+	});
 
-	const setWeatherData = async (lat: number, lon: number) => {
+	const setWeatherData = async (
+		lat: number,
+		lon: number,
+		formattedName?: string
+	) => {
 		const {
 			data: currentWeather,
 			error: currentWeatherError,
@@ -72,7 +84,10 @@ export const WeatherProvider: React.FC<Props> = ({ children }) => {
 		) {
 			console.log((currentWeather as any).message);
 
-			setError(true);
+			setError({
+				error: true,
+				message: '',
+			});
 			return;
 		}
 
@@ -85,7 +100,7 @@ export const WeatherProvider: React.FC<Props> = ({ children }) => {
 			return;
 
 		setCurrentWeather({
-			formattedName: currentWeather.name,
+			formattedName: formattedName ? formattedName : currentWeather.name,
 			lat: lat,
 			lon: lon,
 			...currentWeather,
@@ -94,6 +109,8 @@ export const WeatherProvider: React.FC<Props> = ({ children }) => {
 		setDailyWeatherForecast(
 			weatherForecast.list.map((weatherData) => weatherData)
 		);
+		setError({ error: false, message: '' });
+
 		return true;
 	};
 
