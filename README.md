@@ -8,7 +8,9 @@
 
 Click the following link to view the application demo:
 
-<!-- TODO: Add demo link -->
+https://weather-app-matejvykoukal.vercel.app/
+
+> Please note that "Weather at my location feature" may not work correctly in all browers. If you want to try it please try using different browsers.
 
 <!-- Features -->
 
