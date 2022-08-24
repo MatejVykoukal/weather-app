@@ -5,6 +5,7 @@
 		"url": "https://www.linkedin.com/in/mat%C4%9Bj-vykoukal-159b131a9/"
 	},
 	"version": "0.1.0",
+	"homepage": "https://weather-app-matejvykoukal.vercel.app/",
 	"private": true,
 	"dependencies": {
 		"@testing-library/jest-dom": "^5.14.1",
@@ -27,9 +28,7 @@
 		"preinstall": "npx npm-force-resolutions",
 		"test": "react-scripts test",
 		"eject": "react-scripts eject",
-		"svg": "./node_modules/.bin/svg-sprite-generate -d ./src/svg/icons -o ./src/svg/sprite.svg",
-		"predeploy": "npm run build",
-		"deploy": "gh-pages -d build"
+		"svg": "./node_modules/.bin/svg-sprite-generate -d ./src/svg/icons -o ./src/svg/sprite.svg"
 	},
 	"eslintConfig": {
 		"extends": [
@@ -56,7 +55,6 @@
 		"autoprefixer": "^10.4.7",
 		"classnames": "^2.3.1",
 		"daisyui": "^2.19.0",
-		"gh-pages": "^4.0.0",
 		"lodash": "^4.17.21",
 		"nth-check": "^2.1.1",
 		"postcss": "^8.4.14",
