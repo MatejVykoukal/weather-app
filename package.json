@@ -1,5 +1,9 @@
 {
 	"name": "weather-app-open-weather",
+	"author": {
+		"name": "Matej Vykoukal",
+		"url": "https://www.linkedin.com/in/mat%C4%9Bj-vykoukal-159b131a9/"
+	},
 	"version": "0.1.0",
 	"private": true,
 	"dependencies": {

@@ -1,5 +1,7 @@
 # Weather App
 
+![Screenshot of weather application](cover_image.png)
+
 <!-- Demo Page -->
 
 ## Application demo
@@ -78,8 +80,8 @@ npm start
 - Application is developed using [React](https://reactjs.org/) + [Typescript](https://www.typescriptlang.org/) in core.
 - Weather data comes from public API - [Open Weather Map](https://openweathermap.org/).
 - The is also used second public API - [Adress Completion](https://rapidapi.com/geoapify-gmbh-geoapify/api/address-completion) to cover wider range of searchable places.
-- Application states are managed using React hooks and contextAPI
-- UI is styled using [TaiwindCSS](https://tailwindcss.com/)
+- Application states are managed using React hooks and contextAPI.
+- UI is styled using [TaiwindCSS](https://tailwindcss.com/).
 
 ## Developer notes
 
@@ -134,3 +136,7 @@ components
 #### `constants.ts`
 
 - File for storing global constants.
+
+## License
+
+- Licensed uder [MIT]()
