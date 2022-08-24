@@ -15,6 +15,11 @@ const Carousel: React.FC<Props> = ({ children, id }) => {
 			rewind: false,
 			perView: 2.5,
 			perTouch: 1,
+			breakpoints: {
+				576: {
+					perView: 1.5,
+				},
+			},
 		}).mount();
 	}, [id]);
 

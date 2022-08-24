@@ -51,25 +51,28 @@ const WeatherSearchForm: React.FC<Props> = () => {
 	};
 
 	return (
-		<form className="mt-8" onSubmit={(e) => e.preventDefault()} role="search">
+		<form
+			className="mt-4 sm:mt-8"
+			onSubmit={(e) => e.preventDefault()}
+			role="search"
+		>
 			<label htmlFor="weather-search" className="w-0 h-0 absolute invisible">
 				Search for weather in city, country or country code
 			</label>
-			<div className="container">
-				<Autocomplete
-					id="weather-search"
-					minLength={2}
-					source={getAutocompleteData}
-					onConfirm={handleAdressSubmit}
-					displayMenu="overlay"
-					placeholder="Search for city, postcode, country, etc."
-					templates={{
-						inputValue: () => {
-							return '';
-						},
-					}}
-				/>
-			</div>
+
+			<Autocomplete
+				id="weather-search"
+				minLength={2}
+				source={getAutocompleteData}
+				onConfirm={handleAdressSubmit}
+				displayMenu="overlay"
+				placeholder="Search for city, postcode, country, etc."
+				templates={{
+					inputValue: () => {
+						return '';
+					},
+				}}
+			/>
 		</form>
 	);
 };

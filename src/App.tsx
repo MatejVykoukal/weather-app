@@ -8,7 +8,6 @@ import classNames from 'classnames';
 import Error from './components/Error';
 import Icon from './components/Icon';
 
-// TODO: Add favicon to app
 // TODO: Transform TW classes to TW components
 
 function App() {
@@ -54,20 +53,20 @@ function App() {
 	return (
 		<div className={classNames({ 'opacity-50 pointer-events-none': loading })}>
 			<div className="App min-h-screen bg-gradient-to-tr from-slate-900 to-slate-800 ">
-				<header className="py-8">
-					<div className="container flex flex-wrap items-center gap-4 justify-between">
+				<header className="py-8 container">
+					<div className="flex flex-col sm:flex-row flex-wrap items-center gap-4 justify-between">
 						<div className="flex gap-2 items-center">
 							<Icon icon="clear-sky" size={24} />
-							<h1 className="text-xl">
-								<a href="/">Weather Forecast</a>
-							</h1>
+							<a href="/">
+								<h1 className="text-xl">Weather Forecast</h1>
+							</a>
 						</div>
 						<button
 							onClick={handleWeatherAtMyLocation}
-							className="btn btn-ghost btn-sm flex gap-2"
+							className="btn btn-ghost button-sm flex-nowrap gap-2"
 						>
 							<Icon icon="location" size={16} />
-							<span>See Weather at my location</span>
+							See Weather at my location
 						</button>
 					</div>
 					<AdressProvider>
