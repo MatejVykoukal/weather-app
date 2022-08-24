@@ -13,7 +13,7 @@ const Carousel: React.FC<Props> = ({ children, id }) => {
 			startAt: 0,
 			rewind: true,
 			perView: 2.5,
-			perTouch: 2,
+			perTouch: 1,
 			breakpoints: {
 				576: {
 					perView: 1.5,
