@@ -1,4 +1,3 @@
-import { json } from 'stream/consumers';
 import { RequestConfig } from './utils';
 
 const ADRESS_BASE_URL = `https://address-completion.p.rapidapi.com/v1/geocode/autocomplete`;

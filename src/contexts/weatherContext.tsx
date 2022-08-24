@@ -82,8 +82,6 @@ export const WeatherProvider: React.FC<Props> = ({ children }) => {
 			(currentWeather as any).message ||
 			(weatherForecast as any).message
 		) {
-			console.log((currentWeather as any).message);
-
 			setError({
 				error: true,
 				message: '',

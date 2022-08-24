@@ -3,6 +3,8 @@ import Glide from '@glidejs/glide';
 import '@glidejs/glide/dist/css/glide.core.min.css';
 import { weatherContext } from '../../contexts/weatherContext';
 import Icon, { IconType } from '../Icon';
+import WeatherDetails from '../WeatherDetail';
+import { capitalize } from '../../utils';
 
 interface Props {
 	icon: IconType;
@@ -35,9 +37,8 @@ const WeatherForecastCard: React.FC<Props> = ({
 	return (
 		<li
 			tabIndex={0}
-			className="flex flex-col justify-center items-center gap-4 bg-glass p-4"
+			className="flex flex-col justify-center items-center gap-4 bg-glass p-4 select-none"
 		>
-			<span className="invisible">{weatherDesc}</span>
 			<Icon icon={icon} size={100} />
 			<div className="flex flex-col items-center">
 				<span>{date}</span>
@@ -47,6 +48,7 @@ const WeatherForecastCard: React.FC<Props> = ({
 				<span className="text-4xl">{temp}</span>
 				<span className="text-cyan-400 text-xl">°C</span>
 			</div>
+			<WeatherDetails icon="text" detail={capitalize(weatherDesc)} />
 		</li>
 	);
 };

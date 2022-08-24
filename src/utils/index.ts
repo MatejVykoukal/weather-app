@@ -84,7 +84,6 @@ export const getData = async (
 		const data = await res.json();
 		result.data = data;
 	} catch (err) {
-		console.error(err);
 		result.error = err as string;
 	}
 	return result;
