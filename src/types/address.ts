@@ -1,4 +1,4 @@
-declare module AdressApi {
+declare module AddressApi {
 	export interface Datasource {
 		sourcename: string;
 		attribution: string;
@@ -64,4 +64,4 @@ declare module AdressApi {
 	}
 }
 
-export default AdressApi;
+export default AddressApi;

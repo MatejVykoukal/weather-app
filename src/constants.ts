@@ -1,17 +1,17 @@
 import { RequestConfig } from './utils';
 
-const ADRESS_BASE_URL = `https://address-completion.p.rapidapi.com/v1/geocode/autocomplete`;
+const ADDRESS_BASE_URL = `https://address-completion.p.rapidapi.com/v1/geocode/autocomplete`;
 
-const ADRESS_REQUEST_OPTIONS = {
+const ADDRESS_REQUEST_OPTIONS = {
 	method: 'GET',
 	headers: {
 		Accept: 'application/json',
-		'X-RapidAPI-Host': String(process.env.REACT_APP_ADRESS_API_HOST),
-		'X-RapidAPI-Key': String(process.env.REACT_APP_ADRESS_API_KEY),
+		'X-RapidAPI-Host': String(process.env.REACT_APP_ADDRESS_API_HOST),
+		'X-RapidAPI-Key': String(process.env.REACT_APP_ADDRESS_API_KEY),
 	},
 };
 
-const ADRESS_BASE_PARAMS = {
+const ADDRESS_BASE_PARAMS = {
 	limit: '5',
 	lang: 'en',
 };
@@ -41,10 +41,10 @@ const WEATHER_FORECAST_BASE_PARAMS = {
 	appid: String(process.env.REACT_APP_WEATHER_API_KEY),
 };
 
-export const AdressRequestConfig = new RequestConfig(
-	ADRESS_BASE_URL,
-	ADRESS_BASE_PARAMS,
-	ADRESS_REQUEST_OPTIONS
+export const AddressRequestConfig = new RequestConfig(
+	ADDRESS_BASE_URL,
+	ADDRESS_BASE_PARAMS,
+	ADDRESS_REQUEST_OPTIONS
 );
 
 export const CurrentWeatherRequestConfig = new RequestConfig(

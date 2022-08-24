@@ -51,9 +51,9 @@ git clone https://github.com/MatejVykoukal/weather-app.git
 
 5. Go to [API page](https://rapidapi.com/geoapify-gmbh-geoapify/api/address-completion) choose free subscription plan.
 
-6. Copy X-RapidAPI-Key and assign it to `REACT_APP_ADRESS_API_KEY` variable in `sample.env`.
+6. Copy X-RapidAPI-Key and assign it to `REACT_APP_ADDRESS_API_KEY` variable in `sample.env`.
 
-7. Copy X-RapidAPI-Host and assign it to `REACT_APP_ADRESS_API_HOST` variable in `sample.env`.
+7. Copy X-RapidAPI-Host and assign it to `REACT_APP_ADDRESS_API_HOST` variable in `sample.env`.
 
 **.env file**
 
@@ -81,7 +81,7 @@ npm start
 
 - Application is developed using [React](https://reactjs.org/) + [Typescript](https://www.typescriptlang.org/) in core.
 - Weather data comes from public API - [Open Weather Map](https://openweathermap.org/).
-- The is also used second public API - [Adress Completion](https://rapidapi.com/geoapify-gmbh-geoapify/api/address-completion) to cover wider range of searchable places.
+- The is also used second public API - [Address Completion](https://rapidapi.com/geoapify-gmbh-geoapify/api/address-completion) to cover wider range of searchable places.
 - Application states are managed using React hooks and contextAPI.
 - UI is styled using [TaiwindCSS](https://tailwindcss.com/).
 

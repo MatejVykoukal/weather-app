@@ -1,5 +1,5 @@
 import SearchForm from '../WeatherSearchForm';
-import { AdressProvider } from '../../contexts/adressContext';
+import { AddressProvider } from '../../contexts/addressContext';
 import { weatherContext } from '../../contexts/weatherContext';
 import CurrentWeather from '../CurrentWeather';
 import WeatherForecast from '../WeatherForecast';
@@ -76,9 +76,9 @@ function App() {
 							See Weather at my location
 						</button>
 					</div>
-					<AdressProvider>
+					<AddressProvider>
 						<SearchForm />
-					</AdressProvider>
+					</AddressProvider>
 				</header>
 				<main>
 					{error?.error ? (
@@ -89,7 +89,7 @@ function App() {
 							<WeatherForecast />
 						</>
 					) : (
-						<h2 className="opacity-50 text-3xl absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 text-center container">
+						<h2 className="opacity-50 text-3xl  text-center container">
 							Search for weather using search bar, or try using "See weather at
 							my location" feature.
 						</h2>

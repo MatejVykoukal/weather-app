@@ -1,35 +1,35 @@
 import React, { useContext } from 'react';
-import { AdressRequestConfig } from '../../constants';
-import { adressContext } from '../../contexts/adressContext';
+import { AddressRequestConfig } from '../../constants';
+import { addressContext } from '../../contexts/addressContext';
 import { weatherContext } from '../../contexts/weatherContext';
 import { getData } from '../../utils';
 import { FetchResult } from '../../types/utils';
-import AdressApi from '../../types/adress';
+import AddressApi from '../../types/address';
 import Autocomplete from 'accessible-autocomplete/react';
 
 interface Props {}
 
 const WeatherSearchForm: React.FC<Props> = () => {
 	const { setSearchParams } = useContext(weatherContext);
-	const { setSearchAdresses, searchAdresses } = useContext(adressContext);
+	const { setSearchAddresses, searchAddresses } = useContext(addressContext);
 
 	const searchInput = document.getElementById(
 		'weather-search'
 	) as HTMLInputElement;
 
-	const handleAdressSubmit = async (adress: string) => {
-		const placeAdress = searchAdresses?.filter(
-			({ properties }) => properties.formatted === adress
+	const handleAddressSubmit = async (address: string) => {
+		const placeAddress = searchAddresses?.filter(
+			({ properties }) => properties.formatted === address
 		)[0];
 
-		if (!placeAdress) return;
+		if (!placeAddress) return;
 
 		setSearchParams!({
-			lat: placeAdress.properties.lat.toString(),
-			lon: placeAdress.properties.lon.toString(),
+			lat: placeAddress.properties.lat.toString(),
+			lon: placeAddress.properties.lon.toString(),
 		});
 
-		setSearchAdresses!([]);
+		setSearchAddresses!([]);
 
 		searchInput.value = '';
 	};
@@ -38,15 +38,15 @@ const WeatherSearchForm: React.FC<Props> = () => {
 		query: string,
 		populateResults: Function
 	) => {
-		const { data: adresses, error }: FetchResult<AdressApi.RootObject> =
-			await getData(AdressRequestConfig, {
+		const { data: addresses, error }: FetchResult<AddressApi.RootObject> =
+			await getData(AddressRequestConfig, {
 				text: query,
 			});
 		if (error) return;
 
-		setSearchAdresses!(adresses!.features);
+		setSearchAddresses!(addresses!.features);
 		populateResults(
-			adresses!.features.map(({ properties }) => properties.formatted)
+			addresses!.features.map(({ properties }) => properties.formatted)
 		);
 	};
 
@@ -64,7 +64,7 @@ const WeatherSearchForm: React.FC<Props> = () => {
 				id="weather-search"
 				minLength={2}
 				source={getAutocompleteData}
-				onConfirm={handleAdressSubmit}
+				onConfirm={handleAddressSubmit}
 				displayMenu="overlay"
 				placeholder="Search for city, postcode, country, etc."
 				templates={{

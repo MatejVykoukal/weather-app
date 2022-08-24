@@ -11,10 +11,9 @@ const Carousel: React.FC<Props> = ({ children, id }) => {
 		new Glide(`#${id}`, {
 			type: 'slider',
 			startAt: 0,
-			bound: true,
-			rewind: false,
+			rewind: true,
 			perView: 2.5,
-			perTouch: 1,
+			perTouch: 2,
 			breakpoints: {
 				576: {
 					perView: 1.5,
