@@ -1,14 +1,14 @@
-import SearchForm from './components/WeatherSearchForm';
-import { AdressProvider } from './contexts/adressContext';
-import { weatherContext } from './contexts/weatherContext';
-import CurrentWeather from './components/CurrentWeather';
-import WeatherForecast from './components/WeatherForecast';
+import SearchForm from '../WeatherSearchForm';
+import { AdressProvider } from '../../contexts/adressContext';
+import { weatherContext } from '../../contexts/weatherContext';
+import CurrentWeather from '../CurrentWeather';
+import WeatherForecast from '../WeatherForecast';
 import { useContext, useEffect, useState } from 'react';
 import classNames from 'classnames';
-import Error from './components/Error';
-import Icon from './components/Icon';
+import Error from '../Error';
+import Icon from '../Icon';
 
-// TODO: Transform TW classes to TW components
+// TODO: Depoloy demo application
 
 function App() {
 	const [loading, setLoading] = useState(false);
@@ -52,7 +52,7 @@ function App() {
 
 	return (
 		<div className={classNames({ 'opacity-50 pointer-events-none': loading })}>
-			<div className="App min-h-screen bg-gradient-to-tr from-slate-900 to-slate-800 ">
+			<div className="min-h-screen bg-gradient-to-tr from-slate-900 to-slate-800 ">
 				<header className="py-8 container">
 					<div className="flex flex-col sm:flex-row flex-wrap items-center gap-4 justify-between">
 						<div className="flex gap-2 items-center">
