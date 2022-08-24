@@ -10,7 +10,7 @@ import Autocomplete from 'accessible-autocomplete/react';
 interface Props {}
 
 const WeatherSearchForm: React.FC<Props> = () => {
-	const { setSearchParams } = useContext(weatherContext);
+	const { setSearchParams, setError } = useContext(weatherContext);
 	const { setSearchAddresses, searchAddresses } = useContext(addressContext);
 
 	const searchInput = document.getElementById(
@@ -42,7 +42,13 @@ const WeatherSearchForm: React.FC<Props> = () => {
 			await getData(AddressRequestConfig, {
 				text: query,
 			});
-		if (error) return;
+		if (error) {
+			setError!({
+				error: true,
+				message: '',
+			});
+			return;
+		}
 
 		setSearchAddresses!(addresses!.features);
 		populateResults(
