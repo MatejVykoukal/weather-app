@@ -1,11 +1,10 @@
 import React, { useContext } from 'react';
 import Icon from '../Icon';
-import { ApiWeatherIconCodes, IconType } from '../Icon/Icon';
 import { weatherContext } from '../../contexts/weatherContext';
 import WeatherDetails from '../WeatherDetail';
 import classnames from 'classnames';
 import { capitalize, getFormatedDate } from '../../utils';
-import { IApiWeatherIconCodes } from '../../types/weather';
+import { ApiWeatherIcons, IApiWeatherIconCodes } from '../../types/weather';
 
 interface Props {}
 
@@ -84,7 +83,7 @@ const CurrentWeather: React.FC<Props> = () => {
 								<div className="flex flex-col items-center gap-4">
 									<Icon
 										icon={
-											ApiWeatherIconCodes[
+											ApiWeatherIcons[
 												currentWeather.weather[0].icon.slice(
 													0,
 													2

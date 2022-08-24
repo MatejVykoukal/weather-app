@@ -3,14 +3,17 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { WeatherProvider } from './contexts/weatherContext';
+import { BrowserRouter } from 'react-router-dom';
 
 const root = ReactDOM.createRoot(
 	document.getElementById('root') as HTMLElement
 );
 root.render(
-	<WeatherProvider>
-		<App />
-	</WeatherProvider>
+	<BrowserRouter>
+		<WeatherProvider>
+			<App />
+		</WeatherProvider>
+	</BrowserRouter>
 );
 
 // If you want to start measuring performance in your app, pass a function

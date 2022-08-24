@@ -2,12 +2,10 @@ import React, { useContext, useEffect, useState } from 'react';
 import '@glidejs/glide/dist/css/glide.core.min.css';
 import { weatherContext } from '../../contexts/weatherContext';
 import { getFormatedDate, getFormatedTime } from '../../utils';
-import { IconType } from '../Icon';
 import Carousel from '../Carousel';
 import WeatherForecastCard from '../WeatherForecastCard';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
-import { IApiWeatherIconCodes } from '../../types/weather';
-import { ApiWeatherIconCodes } from '../Icon/Icon';
+import { ApiWeatherIcons, IApiWeatherIconCodes } from '../../types/weather';
 
 interface Props {}
 
@@ -66,7 +64,7 @@ const WeatherForecast: React.FC<Props> = () => {
 													date={uniqueDate}
 													time={getFormatedTime(filteredForecast.dt)}
 													icon={
-														ApiWeatherIconCodes[
+														ApiWeatherIcons[
 															filteredForecast.weather[0].icon.slice(
 																0,
 																2

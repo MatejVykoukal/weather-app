@@ -1,5 +1,3 @@
-import { ApiWeatherIconCodes } from '../components/Icon/Icon';
-
 export declare module CurrentWeatherApi {
 	interface Coord {
 		lon: number;
@@ -145,7 +143,19 @@ export interface WeatherError {
 	message: string;
 }
 
-export type IApiWeatherIcons =
-	typeof ApiWeatherIconCodes[keyof typeof ApiWeatherIconCodes];
+export const ApiWeatherIcons = {
+	'01': 'clear-sky',
+	'02': 'few-clouds',
+	'03': 'clouds',
+	'04': 'broken-clouds',
+	'09': 'shower-rain',
+	'10': 'rain',
+	'11': 'thunderstorm',
+	'13': 'snow',
+	'50': 'mist',
+} as const;
 
-export type IApiWeatherIconCodes = keyof typeof ApiWeatherIconCodes;
+export type IApiWeatherIcons =
+	typeof ApiWeatherIcons[keyof typeof ApiWeatherIcons];
+
+export type IApiWeatherIconCodes = keyof typeof ApiWeatherIcons;

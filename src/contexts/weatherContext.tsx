@@ -17,12 +17,15 @@ import {
 	WeatherForecastApi,
 } from '../types/weather';
 import { getData } from '../utils';
+import { URLSearchParamsInit, useSearchParams } from 'react-router-dom';
 
 interface Props {
 	children: React.ReactNode;
 }
 
 interface WeatherContextValue {
+	searchParams: URLSearchParams;
+	setSearchParams: (nextInit: URLSearchParamsInit) => void;
 	currentWeather: ICurrentWeather | undefined;
 	setCurrentWeather: Dispatch<SetStateAction<ICurrentWeather | undefined>>;
 	dailyWeatherForecast: IWeatherForecast | undefined;
@@ -112,7 +115,11 @@ export const WeatherProvider: React.FC<Props> = ({ children }) => {
 		return true;
 	};
 
+	const [searchParams, setSearchParams] = useSearchParams();
+
 	const value: WeatherContextValue = {
+		searchParams,
+		setSearchParams,
 		currentWeather,
 		setCurrentWeather,
 		dailyWeatherForecast,
