@@ -13,8 +13,15 @@ import Icon from '../Icon';
 function App() {
 	const [loading, setLoading] = useState(false);
 
-	const { setWeatherData, error, setError, searchParams, setSearchParams } =
-		useContext(weatherContext);
+	const {
+		currentWeather,
+		dailyWeatherForecast,
+		setWeatherData,
+		error,
+		setError,
+		searchParams,
+		setSearchParams,
+	} = useContext(weatherContext);
 
 	const geolocationSuccessCallback = (data: GeolocationPosition) => {
 		setSearchParams!({
@@ -76,11 +83,16 @@ function App() {
 				<main>
 					{error?.error ? (
 						<Error message={error.message} />
-					) : (
+					) : currentWeather && dailyWeatherForecast ? (
 						<>
 							<CurrentWeather />
 							<WeatherForecast />
 						</>
+					) : (
+						<h2 className="opacity-50 text-3xl absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 text-center container">
+							Search for weather using search bar, or try using "See weather at
+							my location" feature.
+						</h2>
 					)}
 				</main>
 			</div>
